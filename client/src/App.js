@@ -5,8 +5,14 @@ import axios from "axios";
 function App() {
   const [notes, setNotes] = useState(null);
   useEffect(() => {
+    let url = null;
+    if (process.env.NODE_ENV === "development") {
+      url = "http://localhost:8000";
+    } else {
+      url = "https://testheroku101010.herokuapp.com";
+    }
     axios
-      .get("http://localhost:8000/api/notes")
+      .get(`${url}/api/notes`)
       .then((res) => {
         console.log(res.data);
         setNotes(res.data);
